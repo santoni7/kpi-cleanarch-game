@@ -18,6 +18,7 @@ class GameCollectionUseCasesImpl @Inject constructor(val api: ExampleApi, @Named
         GetGamesUseCase, StartGameUseCase {
 
     override fun getGames(): Single<List<GameEntity>> {
+        // todo replace api call with repository
         return api.gamesList()
             .map { list ->
                 Log.d(GTAG, "Got list of games: $list}")
