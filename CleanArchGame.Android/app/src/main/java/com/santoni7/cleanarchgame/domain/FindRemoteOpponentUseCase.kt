@@ -1,8 +1,7 @@
 package com.santoni7.cleanarchgame.domain
 
 import com.santoni7.cleanarchgame.model.GameEntity
-import com.santoni7.cleanarchgame.game.Player
-import com.santoni7.cleanarchgame.game.RemotePlayer
+import com.santoni7.cleanarchgame.game.player.RemotePlayer
 import io.reactivex.Observable
 
 // Todo: create abstract factory for different games' remote player?

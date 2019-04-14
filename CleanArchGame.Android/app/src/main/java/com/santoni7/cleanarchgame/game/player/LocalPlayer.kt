@@ -1,6 +1,7 @@
-package com.santoni7.cleanarchgame.game
+package com.santoni7.cleanarchgame.game.player
 
 import android.util.Log
+import com.santoni7.cleanarchgame.game.GameState
 import io.reactivex.Observable
 
 abstract class LocalPlayer(val name: String) : Player {
