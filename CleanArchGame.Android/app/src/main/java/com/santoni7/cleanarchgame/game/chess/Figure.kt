@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.game
+package com.santoni7.cleanarchgame.game.chess
 
 abstract class Figure(val colour: FigureColor) {
 

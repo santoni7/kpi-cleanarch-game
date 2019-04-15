@@ -42,7 +42,6 @@ abstract class BaseFragment : Fragment() {
         })
     }
 
-
     open fun showProgress(msg: String? = null) {
         hostActivity.showProgress(msg)
     }
@@ -58,7 +57,6 @@ abstract class BaseFragment : Fragment() {
     fun toast(msg: String?, len: Int = Toast.LENGTH_SHORT){
         Toast.makeText(context, msg, len).show()
     }
-
 
     override fun onDestroyView() {
         hostActivity.hideProgress()

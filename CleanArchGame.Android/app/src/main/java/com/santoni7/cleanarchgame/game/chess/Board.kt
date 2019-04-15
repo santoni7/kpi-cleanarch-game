@@ -1,13 +1,15 @@
-package com.santoni7.cleanarchgame.game
+package com.santoni7.cleanarchgame.game.chess
 
 class Board {
 
-    companion object{
+    companion object {
         const val BOARD_SIZE = 8
     }
 
     val removedFigures =  ArrayList<Figure>()
-    private val cells: Array<Array<BoardCell>> = Array(BOARD_SIZE) { Array(BOARD_SIZE) { BoardCell() } }
+    private val cells: Array<Array<BoardCell>> = Array(BOARD_SIZE) { Array(
+        BOARD_SIZE
+    ) { BoardCell() } }
 
     fun moveFigure(move: FigureMove): Boolean {
         if(!moveIsValid(move)) return false
@@ -40,5 +42,9 @@ class Board {
             removedFigures.add(beatCell.figure!!)
             beatCell.clear()
         }
+    }
+
+    fun checkGameEnd(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

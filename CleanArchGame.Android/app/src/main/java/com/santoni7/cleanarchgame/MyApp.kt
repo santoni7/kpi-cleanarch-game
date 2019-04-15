@@ -16,7 +16,6 @@ class MyApp : Application() {
         component = DaggerAppComponent.builder()
             .contextModule(ContextModule(applicationContext, deviceId))
             .build()
-
     }
 
     companion object {
