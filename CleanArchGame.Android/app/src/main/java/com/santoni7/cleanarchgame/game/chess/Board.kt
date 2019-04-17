@@ -1,5 +1,7 @@
 package com.santoni7.cleanarchgame.game.chess
 
+import com.santoni7.cleanarchgame.game.player.Player
+
 class Board {
 
     companion object {
@@ -7,13 +9,24 @@ class Board {
         const val FIGURES_NUMBER = 12
     }
 
-    val removedFigures =  ArrayList<Figure>()
+    val removedFigures =  HashMap<Player, Figure>()
     val cells: Array<Array<BoardCell>> = Array(BOARD_SIZE) { Array(BOARD_SIZE) { BoardCell() } }
+
+    fun initBoard() {
+        var xStart: Int
+        for (y in 0 until FIGURES_NUMBER/4 step 1) {
+            xStart = y % 2
+            for(x in xStart until BOARD_SIZE step 2) {
+                cells[x][y].figure = Checker(FigureColor.WHITE)
+                cells[x][BOARD_SIZE - y - 1].figure = Checker(FigureColor.BLACK)
+            }
+        }
+    }
 
     fun moveFigure(move: FigureMove): Boolean {
         if(!moveIsValid(move)) return false
         val beatFigures = performMove(move)
-        removeBeatFigure(beatFigures)
+        //removeBeatFigure(beatFigures)
         return true
     }
 
@@ -33,14 +46,14 @@ class Board {
         return figure!!.getBeatFigure(this, move)
     }
 
-    private fun removeBeatFigure(beatCell: BoardCell?) {
-        beatCell?.let {
-            removedFigures.add(beatCell.figure!!)
-            beatCell.clear()
-        }
-    }
+//    fun removeBeatFigure(beatCell: BoardCell?) {
+//        beatCell?.let {
+//            removedFigures.add(beatCell.figure!!)
+//            beatCell.clear()
+//        }
+//    }
 
-    fun checkGameEnd(): Boolean {
-
-    }
+//    fun checkGameEnd(): Boolean {
+//
+//    }
 }

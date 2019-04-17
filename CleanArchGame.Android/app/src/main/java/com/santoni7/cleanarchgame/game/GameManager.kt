@@ -6,7 +6,7 @@ interface GameManager {
 
     fun initGame(hostPlayer: Player, opponentPlayer: Player)
     fun startGame()
-    fun move(player: Player, move: GameMove): Boolean
+    fun move(move: GameMove): Boolean
     fun checkGameEnd(): Boolean
     fun endGame()
 }

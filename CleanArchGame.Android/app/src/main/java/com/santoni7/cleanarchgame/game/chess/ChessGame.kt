@@ -24,14 +24,16 @@ class ChessGame : GameManager {
 
     }
 
-    override fun move(player: Player, move: GameMove): Boolean {
+    override fun move(move: GameMove): Boolean {
         val chessMove = if(move is FigureMove) move else return false
         if(!board.moveFigure(chessMove)) return false
-        history.add(Pair(player, chessMove))
+        //history.add(Pair(player, chessMove))
         return true
     }
 
     override fun checkGameEnd(): Boolean {
-        return board.checkGameEnd()
+        //return board.checkGameEnd()
+
+        return true
     }
 }
