@@ -21,6 +21,6 @@ class ContextModule(val appContext: Context, val deviceToken: String) {
         .setLenient()
         .create()
 
-    @Named(Name.DEVICE_TOKEN)
+    @Qualifiers.DeviceToken
     @Provides fun deviceToken(): String = deviceToken
 }

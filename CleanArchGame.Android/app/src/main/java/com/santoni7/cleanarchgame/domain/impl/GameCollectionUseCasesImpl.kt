@@ -2,8 +2,8 @@ package com.santoni7.cleanarchgame.domain.impl
 
 import android.util.Log
 import com.santoni7.cleanarchgame.GTAG
-import com.santoni7.cleanarchgame.Name
 import com.santoni7.cleanarchgame.api.ExampleApi
+import com.santoni7.cleanarchgame.di.Qualifiers
 import com.santoni7.cleanarchgame.domain.GetGamesUseCase
 import com.santoni7.cleanarchgame.domain.StartGameUseCase
 import com.santoni7.cleanarchgame.model.GameEntity
@@ -12,9 +12,8 @@ import com.santoni7.cleanarchgame.model.StatusResponse
 import com.santoni7.cleanarchgame.model.User
 import io.reactivex.Single
 import javax.inject.Inject
-import javax.inject.Named
 
-class GameCollectionUseCasesImpl @Inject constructor(val api: ExampleApi, @Named(Name.DEVICE_TOKEN) val deviceToken: String) :
+class GameCollectionUseCasesImpl @Inject constructor(val api: ExampleApi, @Qualifiers.DeviceToken val deviceToken: String) :
         GetGamesUseCase, StartGameUseCase {
 
     override fun getGames(): Single<List<GameEntity>> {
