@@ -1,9 +1,11 @@
 package com.santoni7.cleanarchgame.game.player
 
-import com.santoni7.cleanarchgame.game.GameMove
 import com.santoni7.cleanarchgame.game.GameState
-import io.reactivex.Observable
+import com.santoni7.cleanarchgame.game.PlayerAction
+import io.reactivex.Single
 
-interface Player {
-    fun nextMove(gameMove: GameMove): Observable<GameState>
+interface Player<TGameState: GameState, TPlayerAction: PlayerAction> {
+    val type: PlayerType // Should be true only for local player (false for AI and
+    fun ready(): Boolean
+    fun nextMove(gameState: TGameState): Single<TPlayerAction>
 }

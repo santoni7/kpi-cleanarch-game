@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.domain.repositories
+package com.santoni7.cleanarchgame.data
 
 import com.santoni7.cleanarchgame.model.User
 import io.reactivex.Single

@@ -2,7 +2,7 @@ package com.santoni7.cleanarchgame.di
 
 import com.google.gson.Gson
 import com.santoni7.cleanarchgame.Const
-import com.santoni7.cleanarchgame.api.ExampleApi
+import com.santoni7.cleanarchgame.api.GameApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.CookieJar
@@ -36,6 +36,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun authApi(retrofit: Retrofit): ExampleApi =
-        retrofit.create(ExampleApi::class.java)
+    fun gameApi(retrofit: Retrofit): GameApi =
+        retrofit.create(GameApi::class.java)
+
+    @Provides
+    @Singleton
+    fun cookieJar(): CookieJar = CookieJar.NO_COOKIES
 }
