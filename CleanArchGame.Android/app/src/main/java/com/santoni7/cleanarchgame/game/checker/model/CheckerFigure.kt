@@ -1,18 +1,18 @@
-package com.santoni7.cleanarchgame.game.checker
+package com.santoni7.cleanarchgame.game.checker.model
 
-import com.santoni7.cleanarchgame.game.chess.FigureColor
-import com.santoni7.cleanarchgame.game.chess.FigureMove
+import com.santoni7.cleanarchgame.game.common.FigureColor
+import com.santoni7.cleanarchgame.game.common.FigureMove
 
-open class CheckerFigure(val color: FigureColor)// : Figure(color)
+open class CheckerFigure(val board: CheckerBoard, val color: FigureColor)// : Figure(color)
 {
     // TODO: get list of all beat figures instead of one figure
     open fun getBeatFigure(board: CheckerBoard, move: FigureMove): CheckerBoard.Cell? {
-        return if (canMove(board, move))
-            doesBeatFigure(board, move)
+        return if (canMove(move))
+            doesBeatFigure(move)
         else null
     }
 
-    open protected fun doesBeatFigure(board: CheckerBoard, move: FigureMove): CheckerBoard.Cell? {
+    open protected fun doesBeatFigure(move: FigureMove): CheckerBoard.Cell? {
         val fromX = move.fromX
         val fromY = move.fromY
         val toX = move.toX
@@ -32,7 +32,7 @@ open class CheckerFigure(val color: FigureColor)// : Figure(color)
         else null
     }
 
-    open fun canMove(board: CheckerBoard, move: FigureMove): Boolean {
+    open fun canMove(move: FigureMove): Boolean {
         val fromX = move.fromX
         val fromY = move.fromY
         val toX = move.toX
@@ -43,7 +43,7 @@ open class CheckerFigure(val color: FigureColor)// : Figure(color)
             return if ((fromX + 1 == toX || fromX - 1 == toX) &&
                 fromY + 1 == toY) true
             else {
-                doesBeatFigure(board, move) != null
+                doesBeatFigure(move) != null
             }
         } else return false
     }

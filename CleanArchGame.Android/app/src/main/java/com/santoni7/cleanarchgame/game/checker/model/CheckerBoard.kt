@@ -1,14 +1,17 @@
-package com.santoni7.cleanarchgame.game.checker
+package com.santoni7.cleanarchgame.game.checker.model
 
 import com.santoni7.cleanarchgame.game.GameState
-import com.santoni7.cleanarchgame.game.chess.FigureColor
-import com.santoni7.cleanarchgame.game.chess.FigureMove
+import com.santoni7.cleanarchgame.game.common.FigureColor
+import com.santoni7.cleanarchgame.game.common.FigureMove
 import com.santoni7.cleanarchgame.util.make2DArray
 
 class CheckerBoard : GameState {
 
-    val cells = make2DArray(BOARD_SIZE, BOARD_SIZE) { i, j -> Cell() }
-    val removedFigures = HashMap<FigureColor, CheckerFigure>()
+    val cells = make2DArray(
+        BOARD_SIZE,
+        BOARD_SIZE
+    ) { i, j -> Cell() }
+    val removedFigures = mutableListOf<CheckerFigure>()
 
 
     init {
@@ -17,14 +20,14 @@ class CheckerBoard : GameState {
             xStart = y % 2
             for (x in xStart until BOARD_SIZE step 2) {
                 cells[x][y].figure =
-                    CheckerFigure(FigureColor.WHITE)
+                    CheckerFigure(this, FigureColor.WHITE)
                 cells[x][BOARD_SIZE - y - 1].figure =
-                    CheckerFigure(FigureColor.BLACK)
+                    CheckerFigure(this, FigureColor.BLACK)
             }
         }
     }
 
-    fun getAvailableMoves(): List<FigureMove> {
+    fun getAvailableMoves(color: FigureColor): List<FigureMove> {
         TODO("Not implemented")
     }
 
@@ -49,21 +52,26 @@ class CheckerBoard : GameState {
         fromCell.clear()
         toCell.figure = figure
         // TODO: get list of all beat figures instead of one figure
-        return figure!!.getBeatFigure(this, move)?.let {
-                beatFigure -> listOf(beatFigure)
+        return figure!!.getBeatFigure(this, move)?.let { beatFigure ->
+            listOf(beatFigure)
         }?.also { figures -> figures.forEach { cell -> removeBeatFigure(cell) } }
     }
 
     fun removeBeatFigure(beatCell: Cell) {
         beatCell.figure!!.let { figure ->
-            removedFigures[figure.color] = figure
+            removedFigures.add(figure)
             beatCell.clear()
         }
     }
 
-    //    fun checkGameEnd(): Boolean {
-//
-//    }
+    fun checkIsEnded(): Boolean {
+        return cells.flatMap { row -> row.filter { cell -> !cell.isFree } } // get all non-free cells and extract figure colors
+            .map { cell -> cell.figure!!.color }
+            .toHashSet()
+            .let { it.size == 1 } // only one color is left on board
+    }
+
+
     class Cell {
         var figure: CheckerFigure? = null
             set(value) {

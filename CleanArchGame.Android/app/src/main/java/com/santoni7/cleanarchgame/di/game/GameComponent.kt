@@ -1,11 +1,12 @@
 package com.santoni7.cleanarchgame.di.game
 
-import com.santoni7.cleanarchgame.game.checker.CheckerGame
+import com.santoni7.cleanarchgame.game.checker.CheckerGameManager
+import com.santoni7.cleanarchgame.viewmodel.CheckerViewModel
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+@GameScope
 @Component(modules = [CheckerModule::class])
 interface GameComponent {
-    fun inject(checkerGame: CheckerGame)
+    fun inject(checkerGame: CheckerGameManager)
+    fun inject(checkerViewModel: CheckerViewModel)
 }

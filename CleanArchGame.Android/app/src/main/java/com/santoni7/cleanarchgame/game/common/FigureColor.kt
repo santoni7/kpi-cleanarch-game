@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.game.chess
+package com.santoni7.cleanarchgame.game.common
 
 enum class FigureColor {
     BLACK,
