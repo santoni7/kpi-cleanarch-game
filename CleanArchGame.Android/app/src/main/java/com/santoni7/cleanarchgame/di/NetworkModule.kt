@@ -38,4 +38,8 @@ class NetworkModule {
     @Singleton
     fun gameApi(retrofit: Retrofit): GameApi =
         retrofit.create(GameApi::class.java)
+
+    @Provides
+    @Singleton
+    fun cookieJar(): CookieJar = CookieJar.NO_COOKIES
 }

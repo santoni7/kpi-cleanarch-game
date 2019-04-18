@@ -6,7 +6,6 @@ import android.provider.Settings
 import com.santoni7.cleanarchgame.di.AppComponent
 import com.santoni7.cleanarchgame.di.ContextModule
 import com.santoni7.cleanarchgame.di.DaggerAppComponent
-import com.santoni7.cleanarchgame.di.game.DaggerGameComponent
 import com.santoni7.cleanarchgame.di.game.GameComponent
 
 class MyApp : Application() {
@@ -19,7 +18,7 @@ class MyApp : Application() {
             .contextModule(ContextModule(applicationContext, deviceId))
             .build()
 
-        gameComponent = DaggerGameComponent.create()
+        gameComponent = component.gameComponent()
     }
 
     companion object {

@@ -1,13 +1,10 @@
 package com.santoni7.cleanarchgame.di.game
 
-import com.santoni7.cleanarchgame.domain.FindOpponentUseCase
 import com.santoni7.cleanarchgame.domain.game.ApplyPlayerActionUseCase
 import com.santoni7.cleanarchgame.domain.game.CheckGameEndedUseCase
 import com.santoni7.cleanarchgame.domain.game.CheckerUseCasesImpl
 import com.santoni7.cleanarchgame.domain.game.ValidatePlayerActionUseCase
-import com.santoni7.cleanarchgame.domain.impl.FindCheckerOpponentUseCaseImpl
 import com.santoni7.cleanarchgame.game.checker.model.CheckerBoard
-import com.santoni7.cleanarchgame.game.checker.player.CheckerPlayer
 import com.santoni7.cleanarchgame.game.common.FigureMove
 import dagger.Binds
 import dagger.Module
@@ -26,7 +23,4 @@ abstract class CheckerModule {
     @GameScope @Checker @Binds
     abstract fun bindCheckerCheckGameEndedUseCase(checkerUseCasesImpl: CheckerUseCasesImpl): CheckGameEndedUseCase<CheckerBoard>
 
-
-    @GameScope @Checker @Binds
-    abstract fun bindFindOpponent(findCheckerOpponentUseCaseImpl: FindCheckerOpponentUseCaseImpl): FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer>
 }

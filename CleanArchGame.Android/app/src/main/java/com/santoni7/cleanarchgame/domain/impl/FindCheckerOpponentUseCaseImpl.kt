@@ -11,10 +11,15 @@ import com.santoni7.cleanarchgame.model.GameMode
 import com.santoni7.cleanarchgame.model.GameSession
 import com.santoni7.cleanarchgame.model.User
 import io.reactivex.Observable
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class FindCheckerOpponentUseCaseImpl : FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer> {
-    override fun findOpponent(session: GameSession, mode: GameMode) = Observable.create<CheckerPlayer>{ emitter ->
-        val player: CheckerPlayer = when(mode) {
+@Singleton
+class FindCheckerOpponentUseCaseImpl @Inject constructor() :
+    FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer> {
+
+    override fun findOpponent(session: GameSession, mode: GameMode) = Observable.create<CheckerPlayer> { emitter ->
+        val player: CheckerPlayer = when (mode) {
             GameMode.LOCAL -> CheckerLocalPlayer(user = User.makeAnonymous())
             GameMode.AI -> CheckerAIPlayer()
             GameMode.REMOTE -> CheckerRemotePlayer(session.webSocketRoomUrl ?: "")
