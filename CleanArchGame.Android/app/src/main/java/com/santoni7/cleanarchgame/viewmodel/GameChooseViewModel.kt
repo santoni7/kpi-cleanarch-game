@@ -42,4 +42,8 @@ class GameChooseViewModel : BaseViewModel() {
     fun chooseGame(gameEntity: GameEntity) {
 
     }
+
+    fun  disconnect() {
+        clearDisposables()
+    }
 }

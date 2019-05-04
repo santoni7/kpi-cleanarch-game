@@ -65,4 +65,9 @@ class GameChooseFragment : BaseFragment(), GamesAdapter.OnGameClickListener {
     override fun onGameClick(gameEntity: GameEntity) {
         gamesViewModel?.chooseGame(gameEntity)
     }
+
+    override fun onDestroy() {
+        gamesViewModel?.disconnect()
+        super.onDestroy()
+    }
 }
