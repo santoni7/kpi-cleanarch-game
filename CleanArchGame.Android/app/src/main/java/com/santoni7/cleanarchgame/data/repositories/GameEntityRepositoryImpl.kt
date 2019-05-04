@@ -9,7 +9,11 @@ import javax.inject.Inject
 // TODO: Use local database along with api to cache game entities for offline usage
 class GameEntityRepositoryImpl @Inject constructor(private val gameApi: GameApi) : GameEntityRepository {
 
-    override fun getGameEntity(id: Int): Single<GameEntity> = gameApi.gameEntity(id)
+    override fun getGameEntity(id: Int): Single<GameEntity> {
+        return gameApi.gameEntity(id)
+    }
 
-    override fun gameEntityList(): Single<List<GameEntity>> = gameApi.gameEntityList()
+    override fun gameEntityList(): Single<List<GameEntity>> {
+        return gameApi.gameEntityList()
+    }
 }

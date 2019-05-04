@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.viewmodel
+package com.santoni7.cleanarchgame.viewmodel.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

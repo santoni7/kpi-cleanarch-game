@@ -5,6 +5,6 @@ import com.santoni7.cleanarchgame.game.GameState
 import io.reactivex.Completable
 
 interface GameStateRepository {
-    fun sendGameState(sessionId: Int, gameState: GameState): Completable
+    fun sendGameState(deviceId: String, sessionId: Int, gameState: GameState): Completable
     fun <TPlayer, TGameState: GameState> sendGameResults(sessionId: Int, gameResult: GameResult<TPlayer, TGameState>)
 }

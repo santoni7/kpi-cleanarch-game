@@ -19,10 +19,6 @@ class GameCollectionUseCasesImpl @Inject constructor(
     override fun getGames(): Single<List<GameEntity>> {
         // todo replace api call with repository
         return gameEntityRepository.gameEntityList()
-            .map { list ->
-                Log.d(TAG, "Got List<GameEntity>: ${list.joinToString()}")
-                list
-            }
     }
 
     override fun startGame(gameEntity: GameEntity, gameMode: GameMode, users: List<User>): Single<StartGameResponse> {

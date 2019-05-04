@@ -9,8 +9,7 @@ import javax.inject.Inject
 
 class GameStateRepositoryImpl @Inject constructor(private val gameApi: GameApi) : GameStateRepository {
 
-
-    override fun sendGameState(sessionId: Int, gameState: GameState) = gameApi.sendGameState(sessionId, gameState)
+    override fun sendGameState(deviceId: String, sessionId: Int, gameState: GameState) = gameApi.sendGameState(sessionId, gameState)
 
     override fun <TPlayer, TGameState : GameState> sendGameResults(
         sessionId: Int,

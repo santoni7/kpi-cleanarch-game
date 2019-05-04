@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Module
 abstract class FindOpponentModule {
     @Singleton @Binds
-    abstract fun bindFindOpponent(findCheckerOpponentUseCaseImpl: FindCheckerOpponentUseCaseImpl): FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer>
+    abstract fun bindFindOpponent(findCheckerOpponentUseCaseImpl: FindCheckerOpponentUseCaseImpl):
+            FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer>
 
 }

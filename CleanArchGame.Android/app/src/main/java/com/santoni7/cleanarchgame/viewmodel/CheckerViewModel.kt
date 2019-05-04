@@ -4,7 +4,6 @@ import android.util.Log
 import com.santoni7.cleanarchgame.GTAG
 import com.santoni7.cleanarchgame.MyApp
 import com.santoni7.cleanarchgame.data.AccountRepository
-import com.santoni7.cleanarchgame.di.game.Checker
 import com.santoni7.cleanarchgame.domain.FindOpponentUseCase
 import com.santoni7.cleanarchgame.domain.StartGameUseCase
 import com.santoni7.cleanarchgame.game.checker.CheckerGameManager
@@ -20,6 +19,7 @@ import com.santoni7.cleanarchgame.model.User
 import com.santoni7.cleanarchgame.model.response.StartGameResponse
 import com.santoni7.cleanarchgame.util.applySchedulers
 import com.santoni7.cleanarchgame.util.applySchedulersForSingle
+import com.santoni7.cleanarchgame.viewmodel.base.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 

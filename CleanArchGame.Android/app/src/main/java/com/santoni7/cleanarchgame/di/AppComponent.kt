@@ -4,6 +4,7 @@ import com.santoni7.cleanarchgame.di.game.CheckerModule
 import com.santoni7.cleanarchgame.di.game.GameComponent
 import com.santoni7.cleanarchgame.ui.MainActivity
 import com.santoni7.cleanarchgame.viewmodel.CheckerViewModel
+import com.santoni7.cleanarchgame.viewmodel.GameChooseViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,4 +15,5 @@ interface AppComponent{
 
     fun inject(mainActivity: MainActivity)
     fun inject(checkerViewModel: CheckerViewModel)
+    fun inject(gameChooseViewModel: GameChooseViewModel)
 }

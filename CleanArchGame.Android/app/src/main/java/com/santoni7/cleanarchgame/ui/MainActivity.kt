@@ -5,15 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
-import com.neovisionaries.ws.client.WebSocket
-import com.neovisionaries.ws.client.WebSocketFactory
 import android.R
 import android.util.Log
-import com.neovisionaries.ws.client.WebSocketListener
-import com.neovisionaries.ws.client.WebSocketAdapter
-
-
-
 
 class MainActivity : AppCompatActivity() {
 

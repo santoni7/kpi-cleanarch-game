@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.ui
+package com.santoni7.cleanarchgame.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.santoni7.cleanarchgame.model.ProgressStatus
-import com.santoni7.cleanarchgame.viewmodel.BaseViewModel
+import com.santoni7.cleanarchgame.viewmodel.base.BaseViewModel
 
 
 abstract class BaseFragment : Fragment() {
@@ -18,7 +18,7 @@ abstract class BaseFragment : Fragment() {
     open val hasToolbar: Boolean = false
 
     protected val hostActivity
-        get() = activity as MainActivity
+        get() = activity as HostActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutResId, container, false)
