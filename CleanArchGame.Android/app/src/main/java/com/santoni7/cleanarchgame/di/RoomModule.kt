@@ -21,7 +21,7 @@ class RoomModule {
 
     @Singleton
     @Provides
-    internal fun providesGameListtDao(demoDatabase: AppDatabase): GameListDao {
+    internal fun providesGameListDao(demoDatabase: AppDatabase): GameListDao {
         return demoDatabase.gameListDao()
     }
 }

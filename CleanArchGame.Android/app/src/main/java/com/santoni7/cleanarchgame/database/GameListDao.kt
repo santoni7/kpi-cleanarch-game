@@ -16,6 +16,9 @@ interface GameListDao {
     @Query("SELECT * FROM gameEntity")
     fun getGames(): Single<List<GameEntity>>
 
+    @Query("SELECT * FROM gameEntity WHERE id = :id")
+    fun getGame(id: Int): Single<GameEntity>
+
     @Insert(onConflict = REPLACE)
     fun insertGames(games: List<GameEntity>): Completable
 

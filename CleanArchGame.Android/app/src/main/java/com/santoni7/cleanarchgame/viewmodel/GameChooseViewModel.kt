@@ -2,9 +2,9 @@ package com.santoni7.cleanarchgame.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.santoni7.cleanarchgame.MyApp
 import com.santoni7.cleanarchgame.domain.GetGamesUseCase
+import com.santoni7.cleanarchgame.game.player.PlayerType
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.viewmodel.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,24 +23,26 @@ class GameChooseViewModel : BaseViewModel() {
     val errorLiveData = MutableLiveData<String>()
 
     fun initGamesList() {
-        disposables.add(
-            getGamesUseCase.getGames()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    gamesListLiveData.postValue(it)
-                }, {
-                   handleError(it)
-                })
-        )
+        getGamesUseCase.getGames()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                gamesListLiveData.postValue(it)
+            }, {
+                handleError(it)
+            }
+            ).saveDisposable()
     }
 
     private fun handleError(t: Throwable) {
         errorLiveData.postValue(t.message)
     }
 
-    fun chooseGame(gameEntity: GameEntity) {
-
+    fun chooseGame(
+        gameEntity: GameEntity,
+        player: PlayerType
+    ) {
+        Log.e("test", gameEntity.toString() + player.toString())
     }
 
     fun  disconnect() {

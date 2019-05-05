@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.santoni7.cleanarchgame.R
+import com.santoni7.cleanarchgame.game.player.PlayerType
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.ProgressStatus
 import com.santoni7.cleanarchgame.ui.adapters.GamesAdapter
@@ -16,7 +17,7 @@ import com.santoni7.cleanarchgame.ui.base.BaseFragment
 import com.santoni7.cleanarchgame.viewmodel.GameChooseViewModel
 import kotlinx.android.synthetic.main.choose_game_fragment.*
 
-class GameChooseFragment : BaseFragment(), GamesAdapter.OnGameClickListener {
+class GameChooseFragment : BaseFragment() {
 
     companion object {
         private val TAG = GameChooseFragment::class.simpleName
@@ -26,16 +27,31 @@ class GameChooseFragment : BaseFragment(), GamesAdapter.OnGameClickListener {
         get() = R.layout.choose_game_fragment
 
     private var gamesViewModel: GameChooseViewModel? = null
+    private var gamesAdapter: GamesAdapter = GamesAdapter(mutableListOf())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         initGamesRecyclerView()
+        start_game_button.setOnClickListener { startGame() }
         gamesViewModel?.initGamesList()
+    }
+
+    private fun startGame() {
+        val game: GameEntity? = gamesAdapter.chosenGame
+        val player: PlayerType? = when(opponents_radio_group.checkedRadioButtonId) {
+            R.id.local_opponent_radio_button -> PlayerType.LOCAL
+            R.id.remote_opponent_radio_button -> PlayerType.REMOTE
+            R.id.ai_opponent_radio_button -> PlayerType.AI
+            else -> null
+        }
+        if(game == null  || player == null) showError("Input correct data")
+        else gamesViewModel?.chooseGame(game, player)
     }
 
     private fun initGamesRecyclerView() {
         games_recycler_view.layoutManager = LinearLayoutManager(hostActivity, RecyclerView.VERTICAL, false)
+        games_recycler_view.adapter = gamesAdapter
     }
 
     private fun initViewModel() {
@@ -52,7 +68,7 @@ class GameChooseFragment : BaseFragment(), GamesAdapter.OnGameClickListener {
     }
 
     private fun displayGamesList(games: List<GameEntity>) {
-        games_recycler_view.adapter = GamesAdapter(games, this)
+        gamesAdapter.swapData(games)
     }
 
     private fun configLoading(progressStatus: ProgressStatus) {
@@ -60,10 +76,6 @@ class GameChooseFragment : BaseFragment(), GamesAdapter.OnGameClickListener {
             ProgressStatus.State.LOADING -> showProgress(progressStatus.message)
             ProgressStatus.State.DONE -> hideProgress()
         }
-    }
-
-    override fun onGameClick(gameEntity: GameEntity) {
-        gamesViewModel?.chooseGame(gameEntity)
     }
 
     override fun onDestroy() {

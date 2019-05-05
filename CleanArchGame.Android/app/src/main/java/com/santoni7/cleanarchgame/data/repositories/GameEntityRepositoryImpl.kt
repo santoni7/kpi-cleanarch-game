@@ -22,7 +22,11 @@ class GameEntityRepositoryImpl @Inject constructor(private val gameApi: GameApi)
     }
 
     override fun getGameEntity(id: Int): Single<GameEntity> {
-        return gameApi.gameEntity(id)
+        return if(isOnline(CONNECT_TIMEOUT)) {
+            gameApi.gameEntityList()
+                .flatMapCompletable { gamesDao.insertGames(it) }
+                .andThen(gamesDao.getGame(id))
+        }else  gamesDao.getGame(id)
     }
 
     override fun gameEntityList(): Single<List<GameEntity>> {
