@@ -6,7 +6,7 @@
 >
 
     <fragment
-            android:id="@+id/start_activity_host_frag"
+            android:id="@+id/start_host_frag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 

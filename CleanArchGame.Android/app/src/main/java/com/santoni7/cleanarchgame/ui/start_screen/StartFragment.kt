@@ -1,5 +1,6 @@
 package com.santoni7.cleanarchgame.ui.start_screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,21 +13,22 @@ import com.santoni7.cleanarchgame.R
 import com.santoni7.cleanarchgame.game.player.PlayerType
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.ProgressStatus
+import com.santoni7.cleanarchgame.ui.MainActivity
 import com.santoni7.cleanarchgame.ui.adapters.GamesAdapter
 import com.santoni7.cleanarchgame.ui.base.BaseFragment
-import com.santoni7.cleanarchgame.viewmodel.GameChooseViewModel
+import com.santoni7.cleanarchgame.viewmodel.StartViewModel
 import kotlinx.android.synthetic.main.choose_game_fragment.*
 
-class GameChooseFragment : BaseFragment() {
+class StartFragment : BaseFragment() {
 
     companion object {
-        private val TAG = GameChooseFragment::class.simpleName
+        private val TAG = StartFragment::class.simpleName
     }
 
     override val layoutResId: Int
         get() = R.layout.choose_game_fragment
 
-    private var gamesViewModel: GameChooseViewModel? = null
+    private var gamesViewModel: StartViewModel? = null
     private var gamesAdapter: GamesAdapter = GamesAdapter(mutableListOf())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,6 +37,8 @@ class GameChooseFragment : BaseFragment() {
         initGamesRecyclerView()
         start_game_button.setOnClickListener { startGame() }
         gamesViewModel?.initGamesList()
+
+
     }
 
     private fun startGame() {
@@ -56,10 +60,17 @@ class GameChooseFragment : BaseFragment() {
 
     private fun initViewModel() {
         if(gamesViewModel != null) return
-        gamesViewModel = ViewModelProviders.of(this).get(GameChooseViewModel::class.java)
+        gamesViewModel = ViewModelProviders.of(this).get(StartViewModel::class.java)
         gamesViewModel!!.progressStatus.observe(this, Observer { configLoading(it) })
         gamesViewModel!!.gamesListLiveData.observe(this, Observer { displayGamesList(it) })
         gamesViewModel!!.errorLiveData.observe(this, Observer { showError(it) })
+        gamesViewModel!!.openGameActivityLiveData.observe(this, Observer { openGameActivity(it) })
+    }
+
+    private fun openGameActivity(arguments: Bundle) {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.putExtra("arguments", arguments)
+        startActivity(intent)
     }
 
     private fun showError(message: String) {

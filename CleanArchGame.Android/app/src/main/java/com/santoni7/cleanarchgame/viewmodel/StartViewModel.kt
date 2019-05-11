@@ -1,5 +1,6 @@
 package com.santoni7.cleanarchgame.viewmodel
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.santoni7.cleanarchgame.MyApp
@@ -11,7 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GameChooseViewModel : BaseViewModel() {
+class StartViewModel : BaseViewModel() {
 
     @Inject lateinit var getGamesUseCase: GetGamesUseCase
 
@@ -21,6 +22,7 @@ class GameChooseViewModel : BaseViewModel() {
 
     val gamesListLiveData = MutableLiveData<List<GameEntity>>()
     val errorLiveData = MutableLiveData<String>()
+    val openGameActivityLiveData = MutableLiveData<Bundle>()
 
     fun initGamesList() {
         getGamesUseCase.getGames()
@@ -42,7 +44,12 @@ class GameChooseViewModel : BaseViewModel() {
         gameEntity: GameEntity,
         player: PlayerType
     ) {
-        Log.e("test", gameEntity.toString() + player.toString())
+        openGameActivityLiveData.postValue(
+            Bundle().apply {
+                putSerializable(GameEntity::class.java.name, gameEntity)
+                putSerializable(PlayerType::class.java.name, player)
+            }
+        )
     }
 
     fun  disconnect() {
