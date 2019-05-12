@@ -1,18 +1,9 @@
 package com.santoni7.cleanarchgame.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import kotlinx.android.synthetic.main.activity_main.*
-import java.io.IOException
-import com.neovisionaries.ws.client.WebSocket
-import com.neovisionaries.ws.client.WebSocketFactory
-import android.R
-import android.util.Log
-import com.neovisionaries.ws.client.WebSocketListener
-import com.neovisionaries.ws.client.WebSocketAdapter
-
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.transaction
+import com.santoni7.cleanarchgame.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,9 +12,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.santoni7.cleanarchgame.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-
+        supportFragmentManager.transaction {
+            add(R.id.fragment_container, CheckerGameFragment())
+        }
     }
 
     fun showProgress(msg: String? = null) {
