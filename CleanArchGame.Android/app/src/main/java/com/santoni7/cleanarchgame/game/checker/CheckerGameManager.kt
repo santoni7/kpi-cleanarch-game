@@ -53,8 +53,8 @@ class CheckerGameManager(
     }
 
     override fun getWinner(): CheckerPlayer? {
-        return getGameState().cells
-            .flatMap { row -> row.filter { cell -> !cell.isFree } } // get all non-free cells and extract figure colors
+        return getGameState()
+            .filterCells { cell -> !cell.isFree } // get all non-free cells and extract figure colors
             .map { cell -> cell.figure!!.color }
             .toHashSet()
             .takeIf { it.size == 1 }
