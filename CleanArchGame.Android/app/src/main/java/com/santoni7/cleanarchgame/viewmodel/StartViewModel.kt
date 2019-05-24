@@ -33,7 +33,8 @@ class StartViewModel : BaseViewModel() {
             }, {
                 handleError(it)
             }
-            ).saveDisposable()
+            )
+            .saveDisposable()
     }
 
     private fun handleError(t: Throwable) {

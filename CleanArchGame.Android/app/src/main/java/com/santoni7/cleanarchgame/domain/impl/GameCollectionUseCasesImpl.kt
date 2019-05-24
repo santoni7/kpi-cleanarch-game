@@ -16,6 +16,8 @@ class GameCollectionUseCasesImpl @Inject constructor(
     val gameEntityRepository: GameEntityRepository
 ) : GetGamesUseCase {
 
+
+
     override fun getGames(): Single<List<GameEntity>> {
         return gameEntityRepository.gameEntityList()
     }

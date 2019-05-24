@@ -16,5 +16,5 @@ abstract class GameCollectionModule{
 
     @Binds @Singleton abstract fun getGamesUseCase(gameCollectionUseCasesImpl: GameCollectionUseCasesImpl): GetGamesUseCase
 
-    @Binds @Singleton abstract fun startGameUseCase(gameCollectionUseCasesImpl: GameCollectionUseCasesImpl): StartGameUseCase
+    //@Binds @Singleton abstract fun startGameUseCase(gameCollectionUseCasesImpl: GameCollectionUseCasesImpl): StartGameUseCase
 }

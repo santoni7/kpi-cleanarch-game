@@ -16,7 +16,7 @@ class RoomModule {
     @Singleton
     @Provides
     internal fun providesRoomDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "clean-db").build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "clean-db").fallbackToDestructiveMigration().build()
     }
 
     @Singleton

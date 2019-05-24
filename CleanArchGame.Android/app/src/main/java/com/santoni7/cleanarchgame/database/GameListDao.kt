@@ -29,6 +29,9 @@ interface GameListDao {
     fun update(game: GameEntity)
 
     @Delete
-    fun delete(game: GameEntity)
+    fun delete(games: List<GameEntity>)
+
+    @Query("DELETE FROM gameEntity")
+    fun clearTable()
 
 }

@@ -24,8 +24,8 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class CheckerViewModel : BaseViewModel() {
-    @Inject
-    lateinit var startGameUseCase: StartGameUseCase
+//    @Inject
+//    lateinit var startGameUseCase: StartGameUseCase
 
     @Inject
     lateinit var findOpponentUseCase: FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer>
@@ -43,16 +43,16 @@ class CheckerViewModel : BaseViewModel() {
     lateinit var checkerGameManager: CheckerGameManager
 
     fun onCreate(gameEntity: GameEntity, gameMode: GameMode) {
-        startGameUseCase.startGame(
-            gameEntity,
-            gameMode,
-            listOf(accountRepository.currentUser ?: User.makeAnonymous(), User.makeAnonymous())
-        )
-            .compose(applySchedulersForSingle())
-            .subscribeBy(
-                onSuccess = { response -> onSessionInitialized(response) },
-                onError = { error -> Log.e(GTAG, "CheckerViewModel->onCreate->onError: ${error.message}", error) }
-            ).saveDisposable()
+//        startGameUseCase.startGame(
+//            gameEntity,
+//            gameMode,
+//            listOf(accountRepository.currentUser ?: User.makeAnonymous(), User.makeAnonymous())
+//        )
+//            .compose(applySchedulersForSingle())
+//            .subscribeBy(
+//                onSuccess = { response -> onSessionInitialized(response) },
+//                onError = { error -> Log.e(GTAG, "CheckerViewModel->onCreate->onError: ${error.message}", error) }
+//            ).saveDisposable()
     }
 
     private fun onSessionInitialized(startGameResponse: StartGameResponse) {

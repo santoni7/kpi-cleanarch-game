@@ -9,12 +9,13 @@ import com.santoni7.cleanarchgame.util.isOnline
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GameEntityRepositoryImpl @Inject constructor(private val gameApi: GameApi) : GameEntityRepository {
-
-    @Inject lateinit var gamesDao: GameListDao
+class GameEntityRepositoryImpl @Inject constructor(
+    private val gameApi: GameApi,
+    private val gamesDao: GameListDao
+) : GameEntityRepository {
 
     companion object {
-        private const val CONNECT_TIMEOUT: Long = 1000
+        private const val CONNECT_TIMEOUT: Long = 2000
     }
 
     init {
@@ -32,7 +33,10 @@ class GameEntityRepositoryImpl @Inject constructor(private val gameApi: GameApi)
     override fun gameEntityList(): Single<List<GameEntity>> {
         return if(isOnline(CONNECT_TIMEOUT)) {
             gameApi.gameEntityList()
-                .flatMapCompletable { gamesDao.insertGames(it) }
+                .flatMapCompletable {
+                    gamesDao.clearTable()
+                    gamesDao.insertGames(it)
+                }
                 .andThen(gamesDao.getGames())
         }else  gamesDao.getGames()
     }
