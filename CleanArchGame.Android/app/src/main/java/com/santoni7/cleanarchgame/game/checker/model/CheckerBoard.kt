@@ -10,7 +10,10 @@ class CheckerBoard : GameState {
     val cells = make2DArray(
         BOARD_SIZE,
         BOARD_SIZE
-    ) { i, j -> Cell() }
+    ) { i, j -> Cell(i, j) }
+
+
+
     val removedFigures = mutableListOf<CheckerFigure>()
 
 
@@ -30,20 +33,6 @@ class CheckerBoard : GameState {
     fun getAvailableMoves(color: FigureColor): List<FigureMove> {
         TODO("Not implemented")
     }
-
-//    fun moveFigure(move: FigureMove): Boolean {
-//        if(!moveIsValid(move)) return false
-//        val beatFigures = performMove(move)
-//        //removeBeatFigure(beatFigures)
-//        return true
-//    }
-
-//    private fun moveIsValid(move: FigureMove): Boolean {
-//        if(move.toX < 0 || move.toX >= BOARD_SIZE || move.toY < 0 || move.toY >= BOARD_SIZE) return true
-//        val figure: Figure = cells[move.fromX][move.fromY].figure ?: return false
-//        if(!figure.canMove(this, move)) return false
-//        return true
-//    }
 
     private fun performMove(move: FigureMove): List<Cell>? {
         val fromCell = cells[move.fromX][move.fromY]
@@ -65,20 +54,28 @@ class CheckerBoard : GameState {
     }
 
     fun checkIsEnded(): Boolean {
-        return cells.flatMap { row -> row.filter { cell -> !cell.isFree } } // get all non-free cells and extract figure colors
+        return filterCells { cell -> !cell.isFree } // get all non-free cells and extract figure colors
             .map { cell -> cell.figure!!.color }
             .toHashSet()
             .let { it.size == 1 } // only one color is left on board
     }
 
+    fun forEachCell(action: (Cell)->Unit){
+        cells.forEach { row -> row.forEach { action.invoke(it) } }
+    }
 
-    class Cell {
+    fun filterCells(predicate: (Cell)->Boolean) =
+        cells.flatMap { row -> row.filter(predicate) }
+
+
+    class Cell(val x: Int, val y: Int) {
         var figure: CheckerFigure? = null
             set(value) {
                 field = value
                 isFree = field == null
             }
         var isFree: Boolean = true
+
 
         fun clear() {
             figure = null
