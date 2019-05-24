@@ -5,6 +5,7 @@ import com.santoni7.cleanarchgame.data.repositories.GameEntityRepositoryImpl
 import com.santoni7.cleanarchgame.domain.GetGamesUseCase
 import com.santoni7.cleanarchgame.domain.StartGameUseCase
 import com.santoni7.cleanarchgame.domain.impl.GameCollectionUseCasesImpl
+import com.santoni7.cleanarchgame.domain.impl.StartCheckerGameImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -16,5 +17,5 @@ abstract class GameCollectionModule{
 
     @Binds @Singleton abstract fun getGamesUseCase(gameCollectionUseCasesImpl: GameCollectionUseCasesImpl): GetGamesUseCase
 
-    //@Binds @Singleton abstract fun startGameUseCase(gameCollectionUseCasesImpl: GameCollectionUseCasesImpl): StartGameUseCase
+    @Binds @Singleton abstract fun startGameUseCase(startCheckerGameImpl: StartCheckerGameImpl): StartGameUseCase
 }

@@ -7,10 +7,8 @@ class StartActivity : HostActivity() {
     override fun getLayoutRes() = R.layout.start_activity
 
     override fun showProgress(msg: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun hideProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

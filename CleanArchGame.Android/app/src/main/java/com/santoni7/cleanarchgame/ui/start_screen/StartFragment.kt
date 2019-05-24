@@ -1,6 +1,5 @@
 package com.santoni7.cleanarchgame.ui.start_screen
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,8 +36,6 @@ class StartFragment : BaseFragment() {
         initGamesRecyclerView()
         start_game_button.setOnClickListener { startGame() }
         gamesViewModel?.initGamesList()
-
-
     }
 
     private fun startGame() {
@@ -50,7 +47,7 @@ class StartFragment : BaseFragment() {
             else -> null
         }
         if(game == null  || player == null) showError("Input correct data")
-        else gamesViewModel?.chooseGame(game, player)
+        else openGameActivity(game, player)
     }
 
     private fun initGamesRecyclerView() {
@@ -64,12 +61,10 @@ class StartFragment : BaseFragment() {
         gamesViewModel!!.progressStatus.observe(this, Observer { configLoading(it) })
         gamesViewModel!!.gamesListLiveData.observe(this, Observer { displayGamesList(it) })
         gamesViewModel!!.errorLiveData.observe(this, Observer { showError(it) })
-        gamesViewModel!!.openGameActivityLiveData.observe(this, Observer { openGameActivity(it) })
     }
 
-    private fun openGameActivity(arguments: Bundle) {
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.putExtra("arguments", arguments)
+    private fun openGameActivity(gameEntity: GameEntity, playerType: PlayerType) {
+        val intent = MainActivity.newIntent(requireContext(), gameEntity, playerType)
         startActivity(intent)
     }
 

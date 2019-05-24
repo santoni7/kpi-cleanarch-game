@@ -10,7 +10,9 @@ import com.santoni7.cleanarchgame.game.common.FigureMove
 import com.santoni7.cleanarchgame.model.GameMode
 import com.santoni7.cleanarchgame.model.GameSession
 import com.santoni7.cleanarchgame.model.User
+import com.santoni7.cleanarchgame.util.exception.PlayerNotFoundException
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,12 +20,24 @@ import javax.inject.Singleton
 class FindCheckerOpponentUseCaseImpl @Inject constructor() :
     FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer> {
 
-    override fun findOpponent(session: GameSession, mode: GameMode) = Observable.create<CheckerPlayer> { emitter ->
-        val player: CheckerPlayer = when (mode) {
+    override fun findOpponent(session: GameSession, mode: GameMode) = Single.create<CheckerPlayer?> { emitter ->
+        val player: CheckerPlayer? = when (mode) {
             GameMode.LOCAL -> CheckerLocalPlayer(user = User.makeAnonymous())
             GameMode.AI -> CheckerAIPlayer()
-            GameMode.REMOTE -> CheckerRemotePlayer(session.webSocketRoomUrl ?: "")
+            else -> {
+                emitter.onError(PlayerNotFoundException())
+                null
+            }
         }
-        emitter.onNext(player)
+       player?.let { emitter.onSuccess( it )}
     }
-}
+
+    override fun findOpponent(mode: GameMode): CheckerPlayer? {
+            val player: CheckerPlayer? = when (mode) {
+                GameMode.LOCAL -> return findOpponent(mode)
+                GameMode.AI -> CheckerAIPlayer()
+                else -> null
+            }
+        return player
+        }
+    }

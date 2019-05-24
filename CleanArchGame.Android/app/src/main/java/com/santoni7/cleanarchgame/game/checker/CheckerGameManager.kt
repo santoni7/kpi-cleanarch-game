@@ -67,9 +67,9 @@ class CheckerGameManager(
     override fun move(move: FigureMove): Boolean {
         if (validatePlayerActionUseCase.validate(board, move)) {
             applyPlayerActionUseCase.applyPlayerAction(board, move)
+            return true
         }
         //history.add(Pair(player, chessMove))
-        return true
+        return false
     }
-
 }
