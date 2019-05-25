@@ -1,5 +1,6 @@
 package com.santoni7.cleanarchgame.game.checker
 
+import android.util.Log
 import com.santoni7.cleanarchgame.MyApp
 import com.santoni7.cleanarchgame.di.game.Checker
 import com.santoni7.cleanarchgame.di.game.GameScope
@@ -19,7 +20,10 @@ import javax.inject.Inject
 
 @GameScope
 class CheckerGameManager(
-    override val session: GameSession, hostPlayer: CheckerPlayer, opponentPlayer: CheckerPlayer, swapColors: Boolean = false,
+    override val session: GameSession,
+    hostPlayer: CheckerPlayer,
+    opponentPlayer: CheckerPlayer,
+    swapColors: Boolean = false,
     uiObserver: CheckerUIObserver? = null
 ) : TwoPlayerGameManager<CheckerPlayer, FigureMove, CheckerBoard, CheckerUIObserver>(hostPlayer, opponentPlayer, uiObserver) {
 
@@ -67,6 +71,7 @@ class CheckerGameManager(
     override fun move(move: FigureMove): Boolean {
         if (validatePlayerActionUseCase.validate(board, move)) {
             applyPlayerActionUseCase.applyPlayerAction(board, move)
+            Log.e("field", board.toString())
             return true
         }
         //history.add(Pair(player, chessMove))

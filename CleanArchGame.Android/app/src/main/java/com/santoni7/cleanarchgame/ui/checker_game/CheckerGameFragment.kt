@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.santoni7.cleanarchgame.R
+import com.santoni7.cleanarchgame.game.common.FigureColor
 import com.santoni7.cleanarchgame.game.player.PlayerType
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.GameMode
 import com.santoni7.cleanarchgame.ui.MainActivity
 import com.santoni7.cleanarchgame.ui.base.BaseFragment
 import com.santoni7.cleanarchgame.viewmodel.CheckerViewModel
+import kotlinx.android.synthetic.main.fragment_checker_game.*
 
 class CheckerGameFragment : BaseFragment() {
     override val layoutResId: Int
@@ -27,5 +29,19 @@ class CheckerGameFragment : BaseFragment() {
             PlayerType.LOCAL -> GameMode.LOCAL
             PlayerType.REMOTE -> GameMode.REMOTE
         })
+
+        move_button.setOnClickListener { moveFigure() }
+    }
+
+    private fun moveFigure() {
+        val move: String = move_edit.text.toString()
+        val parts = move.split(" ")
+        checkerViewModel.onBoardCellClick(
+            parts[0].toInt(),
+            parts[1].toInt(),
+            parts[2].toInt(),
+            parts[3].toInt(),
+            if(parts[4].toInt() == 1) FigureColor.WHITE else FigureColor.BLACK
+        )
     }
 }

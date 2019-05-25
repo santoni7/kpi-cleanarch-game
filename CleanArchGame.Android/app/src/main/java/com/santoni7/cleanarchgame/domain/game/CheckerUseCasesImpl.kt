@@ -1,8 +1,10 @@
 package com.santoni7.cleanarchgame.domain.game
 
+import android.graphics.Color
 import com.santoni7.cleanarchgame.di.game.Checker
 import com.santoni7.cleanarchgame.game.checker.model.CheckerBoard
 import com.santoni7.cleanarchgame.game.checker.player.CheckerPlayer
+import com.santoni7.cleanarchgame.game.common.FigureColor
 import com.santoni7.cleanarchgame.game.common.FigureMove
 import io.reactivex.Completable
 import javax.inject.Inject
@@ -11,6 +13,7 @@ import javax.inject.Inject
 class CheckerUseCasesImpl @Inject constructor() : ValidatePlayerActionUseCase<CheckerBoard, FigureMove>,
     ApplyPlayerActionUseCase<CheckerBoard, FigureMove>,
     CheckGameEndedUseCase<CheckerBoard> {
+
     override fun validate(state: CheckerBoard, move: FigureMove): Boolean {
         return state.cells[move.fromX][move.fromY].figure?.let { it.canMove(move) } ?: false
     }
@@ -24,7 +27,7 @@ class CheckerUseCasesImpl @Inject constructor() : ValidatePlayerActionUseCase<Ch
             toCell.figure = figure
 
             figure!!
-                .getBeatFigure(this, move)
+                .getBeatFigure(this, move, figure.color)
                 ?.let { beatFigure -> listOf(beatFigure) } // TODO: get list of all beat figures instead of one figure
                 ?.also { figures -> figures.forEach { cell -> removeBeatFigure(cell) } }
         }

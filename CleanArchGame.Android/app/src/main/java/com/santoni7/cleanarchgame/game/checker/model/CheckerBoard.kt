@@ -12,19 +12,31 @@ class CheckerBoard : GameState {
         BOARD_SIZE
     ) { i, j -> Cell(i, j) }
 
-
+    override fun toString(): String {
+        var res: String = "\n"
+        cells.forEach {row ->
+            row.forEach {cell ->
+                res += if(!cell.isFree) {
+                    if(cell.figure?.color == FigureColor.WHITE) "1 " else "2 "
+                }else {
+                    "0 "
+                }
+            }
+            res += "\n"
+        }
+        return res
+    }
 
     val removedFigures = mutableListOf<CheckerFigure>()
 
-
     init {
         var xStart: Int
-        for (y in 0 until FIGURES_NUMBER / 4 step 1) {
-            xStart = y % 2
-            for (x in xStart until BOARD_SIZE step 2) {
+        for (x in 0 until FIGURES_NUMBER / 4 step 1) {
+            xStart = x % 2
+            for (y in xStart until BOARD_SIZE step 2) {
                 cells[x][y].figure =
                     CheckerFigure(this, FigureColor.WHITE)
-                cells[x][BOARD_SIZE - y - 1].figure =
+                cells[BOARD_SIZE - x - 1][y].figure =
                     CheckerFigure(this, FigureColor.BLACK)
             }
         }
@@ -34,14 +46,14 @@ class CheckerBoard : GameState {
         TODO("Not implemented")
     }
 
-    private fun performMove(move: FigureMove): List<Cell>? {
+    private fun performMove(move: FigureMove, figureColor: FigureColor): List<Cell>? {
         val fromCell = cells[move.fromX][move.fromY]
         val toCell = cells[move.toX][move.toY]
         val figure = fromCell.figure
         fromCell.clear()
         toCell.figure = figure
         // TODO: get list of all beat figures instead of one figure
-        return figure!!.getBeatFigure(this, move)?.let { beatFigure ->
+        return figure!!.getBeatFigure(this, move, figureColor)?.let { beatFigure ->
             listOf(beatFigure)
         }?.also { figures -> figures.forEach { cell -> removeBeatFigure(cell) } }
     }

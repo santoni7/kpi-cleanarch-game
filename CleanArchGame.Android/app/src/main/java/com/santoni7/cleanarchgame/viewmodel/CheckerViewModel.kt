@@ -48,7 +48,7 @@ class CheckerViewModel : BaseViewModel() {
         startGameUseCase.startGame(
             gameEntity,
             gameMode,
-            listOf(accountRepository.currentUser ?: User.makeAnonymous(), User.makeAnonymous())
+            listOf(User.makeAnonymous(), User.makeAnonymous())
         )
             .compose(applySchedulersForSingle())
             .subscribeBy(
@@ -69,21 +69,28 @@ class CheckerViewModel : BaseViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .flatMapCompletable { secondPlayer ->
                 val hostPlayer =
-                    CheckerAIPlayer(FigureColor.WHITE)
+                    CheckerLocalPlayer(User.makeAnonymous(), FigureColor.WHITE)
                 secondPlayer.setPlayerColor(FigureColor.BLACK)
                 checkerGameManager = CheckerGameManager(startGameResponse.session, hostPlayer, secondPlayer,
                     uiObserver = this.uiObserver)
+                Log.e("field", checkerGameManager.board.toString())
                 checkerGameManager.update()
             }
             .subscribeBy(onComplete = {
 
             }, onError = {})
             .saveDisposable()
-
     }
 
-    fun onBoardCellClick(x: Int, y: Int) {
-        // TODO: Process clicks and then call uiObserver.postAction(...)
+    fun onBoardCellClick(fromX: Int, fromY: Int, toX: Int, toY: Int, color: FigureColor) {
+        uiObserver.postAction(
+            FigureMove(
+            fromX,
+            fromY,
+            toX,
+            toY,
+            color
+        ))
+        checkerGameManager.update()
     }
-
 }

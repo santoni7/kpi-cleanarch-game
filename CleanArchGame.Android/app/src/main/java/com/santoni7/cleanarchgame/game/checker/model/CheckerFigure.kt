@@ -6,10 +6,22 @@ import com.santoni7.cleanarchgame.game.common.FigureMove
 open class CheckerFigure(val board: CheckerBoard, val color: FigureColor)// : Figure(color)
 {
     // TODO: get list of all beat figures instead of one figure
-    open fun getBeatFigure(board: CheckerBoard, move: FigureMove): CheckerBoard.Cell? {
-        return if (canMove(move))
+    open fun getBeatFigure(board: CheckerBoard, move: FigureMove, figureColor: FigureColor): CheckerBoard.Cell? {
+        if(figureColor == FigureColor.BLACK) {
+            board.cells.reverse()
+        }
+        return if (canMove(move)) {
+            if(figureColor == FigureColor.BLACK) {
+                board.cells.reverse()
+            }
             doesBeatFigure(move)
-        else null
+        }
+        else {
+            if(figureColor == FigureColor.BLACK) {
+                board.cells.reverse()
+            }
+            null
+        }
     }
 
     open protected fun doesBeatFigure(move: FigureMove): CheckerBoard.Cell? {
