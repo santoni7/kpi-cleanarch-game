@@ -1,14 +1,13 @@
-package com.santoni7.cleanarchgame.viewmodel
+package com.santoni7.cleanarchgame.presentation.viewmodel
 
 import android.util.Log
 import com.santoni7.cleanarchgame.GTAG
 import com.santoni7.cleanarchgame.MyApp
 import com.santoni7.cleanarchgame.data.AccountRepository
-import com.santoni7.cleanarchgame.di.game.Checker
 import com.santoni7.cleanarchgame.domain.FindOpponentUseCase
 import com.santoni7.cleanarchgame.domain.StartGameUseCase
 import com.santoni7.cleanarchgame.game.checker.CheckerGameManager
-import com.santoni7.cleanarchgame.game.checker.model.CheckerBoard
+import com.santoni7.cleanarchgame.game.common.Board
 import com.santoni7.cleanarchgame.game.checker.player.CheckerLocalPlayer
 import com.santoni7.cleanarchgame.game.checker.player.CheckerPlayer
 import com.santoni7.cleanarchgame.game.common.FigureColor
@@ -18,9 +17,11 @@ import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.GameMode
 import com.santoni7.cleanarchgame.model.User
 import com.santoni7.cleanarchgame.model.response.StartGameResponse
-import com.santoni7.cleanarchgame.util.applySchedulers
 import com.santoni7.cleanarchgame.util.applySchedulersForSingle
+import com.santoni7.cleanarchgame.presentation.viewmodel.base.BaseViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CheckerViewModel : BaseViewModel() {
@@ -28,13 +29,12 @@ class CheckerViewModel : BaseViewModel() {
     lateinit var startGameUseCase: StartGameUseCase
 
     @Inject
-    lateinit var findOpponentUseCase: FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer>
+    lateinit var findOpponentUseCase: FindOpponentUseCase<Board, FigureMove, CheckerPlayer>
 
     @Inject
     lateinit var accountRepository: AccountRepository
 
     init {
-//        MyApp.component.inject(this)
         MyApp.gameComponent.inject(this)
     }
 
@@ -46,39 +46,49 @@ class CheckerViewModel : BaseViewModel() {
         startGameUseCase.startGame(
             gameEntity,
             gameMode,
-            listOf(accountRepository.currentUser ?: User.makeAnonymous(), User.makeAnonymous())
+            listOf(User.makeAnonymous(), User.makeAnonymous())
         )
             .compose(applySchedulersForSingle())
             .subscribeBy(
-                onSuccess = { response -> onSessionInitialized(response) },
+                onSuccess = { response -> onSessionInitialized(response, gameMode) },
                 onError = { error -> Log.e(GTAG, "CheckerViewModel->onCreate->onError: ${error.message}", error) }
             ).saveDisposable()
     }
 
-    private fun onSessionInitialized(startGameResponse: StartGameResponse) {
+    private fun onSessionInitialized(
+        startGameResponse: StartGameResponse,
+        gameMode: GameMode
+    ) {
         if (!startGameResponse.status || startGameResponse.session == null)
             return
 
-        findOpponentUseCase.findOpponent(startGameResponse.session, GameMode.LOCAL)
-            .compose(applySchedulers())
+        findOpponentUseCase.findOpponent(startGameResponse.session, gameMode)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .flatMapCompletable { secondPlayer ->
                 val hostPlayer =
-                    CheckerLocalPlayer(accountRepository.currentUser ?: User.makeAnonymous(), FigureColor.WHITE)
+                    CheckerLocalPlayer(User.makeAnonymous(), FigureColor.WHITE)
                 secondPlayer.setPlayerColor(FigureColor.BLACK)
                 checkerGameManager = CheckerGameManager(startGameResponse.session, hostPlayer, secondPlayer,
                     uiObserver = this.uiObserver)
-
+                Log.e("field", checkerGameManager.board.toString())
                 checkerGameManager.update()
             }
             .subscribeBy(onComplete = {
 
             }, onError = {})
             .saveDisposable()
-
     }
 
-    fun onBoardCellClick(x: Int, y: Int) {
-        // TODO: Process clicks and then call uiObserver.postAction(...)
+    fun onBoardCellClick(fromX: Int, fromY: Int, toX: Int, toY: Int, color: FigureColor) {
+        uiObserver.postAction(
+            FigureMove(
+            fromX,
+            fromY,
+            toX,
+            toY,
+            color
+        ))
+        checkerGameManager.update()
     }
-
 }

@@ -14,19 +14,12 @@ import javax.inject.Inject
 
 class GameCollectionUseCasesImpl @Inject constructor(
     val gameEntityRepository: GameEntityRepository
-) : GetGamesUseCase, StartGameUseCase {
+) : GetGamesUseCase {
+
+
 
     override fun getGames(): Single<List<GameEntity>> {
-        // todo replace api call with repository
         return gameEntityRepository.gameEntityList()
-            .map { list ->
-                Log.d(TAG, "Got List<GameEntity>: ${list.joinToString()}")
-                list
-            }
-    }
-
-    override fun startGame(gameEntity: GameEntity, gameMode: GameMode, users: List<User>): Single<StartGameResponse> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {

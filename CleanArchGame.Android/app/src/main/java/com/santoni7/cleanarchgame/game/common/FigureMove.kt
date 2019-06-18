@@ -1,5 +1,6 @@
 package com.santoni7.cleanarchgame.game.common
 
+import android.graphics.Point
 import com.santoni7.cleanarchgame.game.PlayerAction
 
 data class FigureMove(

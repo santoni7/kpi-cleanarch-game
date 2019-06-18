@@ -1,18 +1,34 @@
 package com.santoni7.cleanarchgame.game.checker.model
 
+import com.santoni7.cleanarchgame.game.common.Board
+import com.santoni7.cleanarchgame.game.common.Figure
 import com.santoni7.cleanarchgame.game.common.FigureColor
 import com.santoni7.cleanarchgame.game.common.FigureMove
 
-open class CheckerFigure(val board: CheckerBoard, val color: FigureColor)// : Figure(color)
-{
-    // TODO: get list of all beat figures instead of one figure
-    open fun getBeatFigure(board: CheckerBoard, move: FigureMove): CheckerBoard.Cell? {
-        return if (canMove(move))
+open class CheckerFigure(
+    override val color: FigureColor,
+    override val board: Board
+) : Figure {
+
+    override fun getBeatFigure(board: Board, move: FigureMove, figureColor: FigureColor): Board.Cell? {
+        if(figureColor == FigureColor.BLACK) {
+            board.cells.reverse()
+        }
+        return if (canMove(move)) {
+            if(figureColor == FigureColor.BLACK) {
+                board.cells.reverse()
+            }
             doesBeatFigure(move)
-        else null
+        }
+        else {
+            if(figureColor == FigureColor.BLACK) {
+                board.cells.reverse()
+            }
+            null
+        }
     }
 
-    open protected fun doesBeatFigure(move: FigureMove): CheckerBoard.Cell? {
+    open protected fun doesBeatFigure(move: FigureMove): Board.Cell? {
         val fromX = move.fromX
         val fromY = move.fromY
         val toX = move.toX
@@ -32,7 +48,7 @@ open class CheckerFigure(val board: CheckerBoard, val color: FigureColor)// : Fi
         else null
     }
 
-    open fun canMove(move: FigureMove): Boolean {
+    override fun canMove(move: FigureMove): Boolean {
         val fromX = move.fromX
         val fromY = move.fromY
         val toX = move.toX

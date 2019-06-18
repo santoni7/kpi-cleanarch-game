@@ -7,6 +7,7 @@ import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.GameMode
 import com.santoni7.cleanarchgame.model.GameSession
 import io.reactivex.Observable
+import io.reactivex.Single
 
 
 interface FindOpponentUseCase<
@@ -14,5 +15,7 @@ interface FindOpponentUseCase<
         TPlayerAction : PlayerAction,
         TPlayer : Player<TGameState, TPlayerAction>> {
 
-    fun findOpponent(session: GameSession, mode: GameMode): Observable<TPlayer>
+    fun findOpponent(session: GameSession, mode: GameMode): Single<TPlayer?>
+
+    fun findOpponent(mode: GameMode): TPlayer?
 }

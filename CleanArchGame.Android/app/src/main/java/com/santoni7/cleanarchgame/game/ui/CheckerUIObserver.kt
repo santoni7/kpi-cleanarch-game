@@ -10,7 +10,6 @@ class CheckerUIObserver : UIObserver<FigureMove>{
 
     override fun onAction(): Observable<FigureMove> = actionSubject
 
-
     fun onAction(color: FigureColor): Observable<FigureMove> =
         actionSubject.filter { action -> action.color == color }
 

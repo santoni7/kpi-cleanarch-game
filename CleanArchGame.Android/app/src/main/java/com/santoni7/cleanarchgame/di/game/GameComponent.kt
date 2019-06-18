@@ -1,8 +1,7 @@
 package com.santoni7.cleanarchgame.di.game
 
 import com.santoni7.cleanarchgame.game.checker.CheckerGameManager
-import com.santoni7.cleanarchgame.viewmodel.CheckerViewModel
-import dagger.Component
+import com.santoni7.cleanarchgame.presentation.viewmodel.CheckerViewModel
 import dagger.Subcomponent
 
 @GameScope
