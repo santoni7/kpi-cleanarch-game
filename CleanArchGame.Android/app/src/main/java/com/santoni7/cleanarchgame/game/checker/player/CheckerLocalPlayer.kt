@@ -2,7 +2,7 @@ package com.santoni7.cleanarchgame.game.checker.player
 
 import android.util.Log
 import com.santoni7.cleanarchgame.GTAG
-import com.santoni7.cleanarchgame.game.checker.model.CheckerBoard
+import com.santoni7.cleanarchgame.game.common.Board
 import com.santoni7.cleanarchgame.game.common.FigureColor
 import com.santoni7.cleanarchgame.game.common.FigureMove
 import com.santoni7.cleanarchgame.game.player.LocalPlayer
@@ -17,7 +17,7 @@ import io.reactivex.subjects.PublishSubject
 class CheckerLocalPlayer(
     val user: User,
     var color: FigureColor = FigureColor.BLACK
-) : CheckerPlayer, LocalPlayer<CheckerBoard, FigureMove, CheckerUIObserver>(user.name) {
+) : CheckerPlayer, LocalPlayer<Board, FigureMove, CheckerUIObserver>(user.name) {
 
     var isReady: Boolean = false
     val disposables = CompositeDisposable()
@@ -28,7 +28,7 @@ class CheckerLocalPlayer(
 
     override fun ready(): Boolean = isReady
 
-    override fun nextMove(gameState: CheckerBoard): Single<FigureMove> {
+    override fun nextMove(gameState: Board): Single<FigureMove> {
         return figureMoveSubject
             .take(1)
             .singleOrError()

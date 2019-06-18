@@ -1,6 +1,5 @@
 package com.santoni7.cleanarchgame.ui.view
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -11,7 +10,7 @@ import android.util.AttributeSet
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.graphics.withTranslation
-import com.santoni7.cleanarchgame.game.checker.model.CheckerBoard
+import com.santoni7.cleanarchgame.game.common.Board
 import com.santoni7.cleanarchgame.game.common.FigureColor
 
 class CheckerBoardView : BaseView {
@@ -48,7 +47,7 @@ class CheckerBoardView : BaseView {
 
     private var padding = defaultPadding
 
-    var board: CheckerBoard? = null
+    var board: Board? = null
         get
         set(b) {
             field = b
@@ -88,7 +87,7 @@ class CheckerBoardView : BaseView {
         board!!
 
         canvas.withTranslation(padding, padding) {
-            val cellSize = areaSize / CheckerBoard.BOARD_SIZE
+            val cellSize = areaSize / Board.BOARD_SIZE
             drawCellsBackground(cellSize)
             drawCellsLines(cellSize)
             drawFigures(cellSize)
@@ -121,7 +120,7 @@ class CheckerBoardView : BaseView {
         paint.style = Paint.Style.STROKE
         paint.color = colLines
         paint.strokeWidth = borderWidth
-        for (i in 0..CheckerBoard.BOARD_SIZE) {
+        for (i in 0..Board.BOARD_SIZE) {
             drawLine(cellSize * i, 0f, cellSize * i, areaSize, paint)
             drawLine(0f, cellSize * i, areaSize, cellSize * i, paint)
         }
@@ -129,8 +128,8 @@ class CheckerBoardView : BaseView {
 
     private fun Canvas.drawCellsBackground(cellSize: Float) {
         paint.style = Paint.Style.FILL
-        for (x in 0 until CheckerBoard.BOARD_SIZE) {
-            for (y in 0 until CheckerBoard.BOARD_SIZE) {
+        for (x in 0 until Board.BOARD_SIZE) {
+            for (y in 0 until Board.BOARD_SIZE) {
                 val cell = board!!.cells[x][y]
                 paint.color = cell.getDrawColor()
                 drawRect(cell.getBounds(cellSize), paint)
@@ -138,7 +137,7 @@ class CheckerBoardView : BaseView {
         }
     }
 
-    private fun CheckerBoard.Cell.getDrawColor() =
+    private fun Board.Cell.getDrawColor() =
         if (x % 2 == 0) {
             if (y % 2 == 0) colWhiteCell
             else colBlackCell
@@ -148,6 +147,6 @@ class CheckerBoardView : BaseView {
         }
 
 
-    private fun CheckerBoard.Cell.getBounds(cellSize: Float) =
+    private fun Board.Cell.getBounds(cellSize: Float) =
         RectF(x * cellSize, y * cellSize, x * cellSize + cellSize, y * cellSize + cellSize)
 }
