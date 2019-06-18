@@ -28,7 +28,7 @@ class CheckerUseCasesImpl @Inject constructor() : ValidatePlayerActionUseCase<Bo
 
             figure!!
                 .getBeatFigure(this, move, figure.color)
-                ?.let { beatFigure -> listOf(beatFigure) } // TODO: get list of all beat figures instead of one figure
+                ?.let { beatFigure -> listOf(beatFigure) }
                 ?.also { figures -> figures.forEach { cell -> removeBeatFigure(cell) } }
         }
     }

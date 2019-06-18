@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.viewmodel
+package com.santoni7.cleanarchgame.presentation.viewmodel
 
 import android.util.Log
 import com.santoni7.cleanarchgame.GTAG
@@ -18,7 +18,7 @@ import com.santoni7.cleanarchgame.model.GameMode
 import com.santoni7.cleanarchgame.model.User
 import com.santoni7.cleanarchgame.model.response.StartGameResponse
 import com.santoni7.cleanarchgame.util.applySchedulersForSingle
-import com.santoni7.cleanarchgame.viewmodel.base.BaseViewModel
+import com.santoni7.cleanarchgame.presentation.viewmodel.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers

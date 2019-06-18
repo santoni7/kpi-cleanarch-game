@@ -17,4 +17,12 @@ class GameStateRepositoryImpl @Inject constructor(private val gameApi: GameApi) 
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun connect(webSocketUrl: String, connectionToken: String): Completable {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun disconnect(): Completable {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

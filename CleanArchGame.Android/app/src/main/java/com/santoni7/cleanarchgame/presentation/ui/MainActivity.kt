@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.ui
+package com.santoni7.cleanarchgame.presentation.ui
 
 import android.content.Context
 import android.content.Intent
@@ -7,11 +7,8 @@ import android.os.Bundle
 import com.santoni7.cleanarchgame.R
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.transaction
-import androidx.navigation.Navigation
 import com.santoni7.cleanarchgame.game.player.PlayerType
 import com.santoni7.cleanarchgame.model.GameEntity
-import com.santoni7.cleanarchgame.ui.checker_game.CheckerGameFragment
 
 class MainActivity : AppCompatActivity() {
 

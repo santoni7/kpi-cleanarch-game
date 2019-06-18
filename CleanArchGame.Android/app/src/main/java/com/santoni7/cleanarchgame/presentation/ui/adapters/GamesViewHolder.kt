@@ -1,6 +1,5 @@
-package com.santoni7.cleanarchgame.ui.adapters
+package com.santoni7.cleanarchgame.presentation.ui.adapters
 
-import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.santoni7.cleanarchgame.model.GameEntity

@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.ui.view
+package com.santoni7.cleanarchgame.presentation.ui.view
 
 import android.content.Context
 import android.graphics.Canvas

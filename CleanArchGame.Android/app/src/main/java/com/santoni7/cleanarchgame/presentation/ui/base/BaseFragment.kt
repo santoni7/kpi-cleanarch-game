@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.ui.base
+package com.santoni7.cleanarchgame.presentation.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.santoni7.cleanarchgame.model.ProgressStatus
-import com.santoni7.cleanarchgame.viewmodel.base.BaseViewModel
+import com.santoni7.cleanarchgame.presentation.viewmodel.base.BaseViewModel
 
 
 abstract class BaseFragment : Fragment() {

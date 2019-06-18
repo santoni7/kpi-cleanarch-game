@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.ui.start_screen
+package com.santoni7.cleanarchgame.presentation.ui.start_screen
 
 import android.os.Bundle
 import android.util.Log
@@ -12,10 +12,10 @@ import com.santoni7.cleanarchgame.R
 import com.santoni7.cleanarchgame.game.player.PlayerType
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.ProgressStatus
-import com.santoni7.cleanarchgame.ui.MainActivity
-import com.santoni7.cleanarchgame.ui.adapters.GamesAdapter
-import com.santoni7.cleanarchgame.ui.base.BaseFragment
-import com.santoni7.cleanarchgame.viewmodel.StartViewModel
+import com.santoni7.cleanarchgame.presentation.ui.MainActivity
+import com.santoni7.cleanarchgame.presentation.ui.adapters.GamesAdapter
+import com.santoni7.cleanarchgame.presentation.ui.base.BaseFragment
+import com.santoni7.cleanarchgame.presentation.viewmodel.StartViewModel
 import kotlinx.android.synthetic.main.choose_game_fragment.*
 
 class StartFragment : BaseFragment() {
