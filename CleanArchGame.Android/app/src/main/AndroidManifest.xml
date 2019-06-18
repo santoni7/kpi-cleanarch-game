@@ -12,11 +12,11 @@
             android:supportsRtl="true"
             android:name=".MyApp"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.MainActivity" >
+        <activity android:name="com.santoni7.cleanarchgame.presentation.ui.MainActivity" >
 
         </activity>
 
-        <activity android:name=".ui.start_screen.StartActivity"
+        <activity android:name="com.santoni7.cleanarchgame.presentation.ui.start_screen.StartActivity"
                   android:screenOrientation="portrait"
         >
             <intent-filter>

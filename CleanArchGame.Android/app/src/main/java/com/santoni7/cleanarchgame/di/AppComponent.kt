@@ -2,9 +2,9 @@ package com.santoni7.cleanarchgame.di
 
 import com.santoni7.cleanarchgame.data.repositories.GameEntityRepositoryImpl
 import com.santoni7.cleanarchgame.di.game.GameComponent
-import com.santoni7.cleanarchgame.ui.MainActivity
-import com.santoni7.cleanarchgame.viewmodel.CheckerViewModel
-import com.santoni7.cleanarchgame.viewmodel.StartViewModel
+import com.santoni7.cleanarchgame.presentation.ui.MainActivity
+import com.santoni7.cleanarchgame.presentation.viewmodel.CheckerViewModel
+import com.santoni7.cleanarchgame.presentation.viewmodel.StartViewModel
 import dagger.Component
 import javax.inject.Singleton
 

@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.ui.base
+package com.santoni7.cleanarchgame.presentation.ui.base
 
 abstract class HostActivity : BaseActivity() {
 

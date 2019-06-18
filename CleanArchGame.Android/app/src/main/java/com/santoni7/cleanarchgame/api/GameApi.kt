@@ -3,6 +3,7 @@ package com.santoni7.cleanarchgame.api
 import com.santoni7.cleanarchgame.game.GameState
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.User
+import com.santoni7.cleanarchgame.model.UserStatistics
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.GET

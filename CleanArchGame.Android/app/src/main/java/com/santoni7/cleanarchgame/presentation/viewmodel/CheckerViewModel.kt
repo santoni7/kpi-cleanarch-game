@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.viewmodel
+package com.santoni7.cleanarchgame.presentation.viewmodel
 
 import android.util.Log
 import com.santoni7.cleanarchgame.GTAG
@@ -7,20 +7,18 @@ import com.santoni7.cleanarchgame.data.AccountRepository
 import com.santoni7.cleanarchgame.domain.FindOpponentUseCase
 import com.santoni7.cleanarchgame.domain.StartGameUseCase
 import com.santoni7.cleanarchgame.game.checker.CheckerGameManager
-import com.santoni7.cleanarchgame.game.checker.model.CheckerBoard
-import com.santoni7.cleanarchgame.game.checker.player.CheckerAIPlayer
+import com.santoni7.cleanarchgame.game.common.Board
 import com.santoni7.cleanarchgame.game.checker.player.CheckerLocalPlayer
 import com.santoni7.cleanarchgame.game.checker.player.CheckerPlayer
 import com.santoni7.cleanarchgame.game.common.FigureColor
 import com.santoni7.cleanarchgame.game.common.FigureMove
-import com.santoni7.cleanarchgame.game.player.AIPlayer
 import com.santoni7.cleanarchgame.game.ui.CheckerUIObserver
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.GameMode
 import com.santoni7.cleanarchgame.model.User
 import com.santoni7.cleanarchgame.model.response.StartGameResponse
 import com.santoni7.cleanarchgame.util.applySchedulersForSingle
-import com.santoni7.cleanarchgame.viewmodel.base.BaseViewModel
+import com.santoni7.cleanarchgame.presentation.viewmodel.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -31,7 +29,7 @@ class CheckerViewModel : BaseViewModel() {
     lateinit var startGameUseCase: StartGameUseCase
 
     @Inject
-    lateinit var findOpponentUseCase: FindOpponentUseCase<CheckerBoard, FigureMove, CheckerPlayer>
+    lateinit var findOpponentUseCase: FindOpponentUseCase<Board, FigureMove, CheckerPlayer>
 
     @Inject
     lateinit var accountRepository: AccountRepository

@@ -6,6 +6,6 @@
 >
 
     <fragment android:id="@+id/checkerGameFragment"
-              android:name="com.santoni7.cleanarchgame.ui.checker_game.CheckerGameFragment"
+              android:name="com.santoni7.cleanarchgame.presentation.ui.checker_game.CheckerGameFragment"
               android:label="CheckerGameFragment"/>
 </navigation>

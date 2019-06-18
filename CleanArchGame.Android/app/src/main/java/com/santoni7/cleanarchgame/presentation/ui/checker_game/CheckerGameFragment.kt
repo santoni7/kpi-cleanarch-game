@@ -1,4 +1,4 @@
-package com.santoni7.cleanarchgame.ui.checker_game
+package com.santoni7.cleanarchgame.presentation.ui.checker_game
 
 import android.os.Bundle
 import android.view.View
@@ -8,9 +8,9 @@ import com.santoni7.cleanarchgame.game.common.FigureColor
 import com.santoni7.cleanarchgame.game.player.PlayerType
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.GameMode
-import com.santoni7.cleanarchgame.ui.MainActivity
-import com.santoni7.cleanarchgame.ui.base.BaseFragment
-import com.santoni7.cleanarchgame.viewmodel.CheckerViewModel
+import com.santoni7.cleanarchgame.presentation.ui.MainActivity
+import com.santoni7.cleanarchgame.presentation.ui.base.BaseFragment
+import com.santoni7.cleanarchgame.presentation.viewmodel.CheckerViewModel
 import kotlinx.android.synthetic.main.fragment_checker_game.*
 
 class CheckerGameFragment : BaseFragment() {

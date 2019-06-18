@@ -7,8 +7,9 @@ import com.santoni7.cleanarchgame.di.game.GameScope
 import com.santoni7.cleanarchgame.domain.game.ApplyPlayerActionUseCase
 import com.santoni7.cleanarchgame.domain.game.CheckGameEndedUseCase
 import com.santoni7.cleanarchgame.domain.game.ValidatePlayerActionUseCase
+import com.santoni7.cleanarchgame.domain.game.board.InitializeFieldUseCase
 import com.santoni7.cleanarchgame.game.GameResult
-import com.santoni7.cleanarchgame.game.checker.model.CheckerBoard
+import com.santoni7.cleanarchgame.game.common.Board
 import com.santoni7.cleanarchgame.game.checker.player.CheckerPlayer
 import com.santoni7.cleanarchgame.game.common.TwoPlayerGameManager
 import com.santoni7.cleanarchgame.game.common.FigureColor
@@ -25,26 +26,30 @@ class CheckerGameManager(
     opponentPlayer: CheckerPlayer,
     swapColors: Boolean = false,
     uiObserver: CheckerUIObserver? = null
-) : TwoPlayerGameManager<CheckerPlayer, FigureMove, CheckerBoard, CheckerUIObserver>(hostPlayer, opponentPlayer, uiObserver) {
+) : TwoPlayerGameManager<CheckerPlayer, FigureMove, Board, CheckerUIObserver>(hostPlayer, opponentPlayer, uiObserver) {
 
     @Inject
     @field:Checker
-    override lateinit var validatePlayerActionUseCase: ValidatePlayerActionUseCase<CheckerBoard, FigureMove>
+    override lateinit var validatePlayerActionUseCase: ValidatePlayerActionUseCase<Board, FigureMove>
 
     @Inject
     @field:Checker
-    override lateinit var applyPlayerActionUseCase: ApplyPlayerActionUseCase<CheckerBoard, FigureMove>
+    override lateinit var applyPlayerActionUseCase: ApplyPlayerActionUseCase<Board, FigureMove>
 
     @Inject
     @field:Checker
-    override lateinit var checkGameEndedUseCase: CheckGameEndedUseCase<CheckerBoard>
+    override lateinit var checkGameEndedUseCase: CheckGameEndedUseCase<Board>
+
+    @Inject
+    @field:Checker
+    lateinit var initializeFieldUseCase: InitializeFieldUseCase<Board>
 
     init {
         MyApp.gameComponent.inject(this)
     }
 
-    var board: CheckerBoard =
-        CheckerBoard()
+    var board: Board =
+        Board(initializeFieldUseCase)
 
     val colorToPlayerMap =
         if (!swapColors) hashMapOf(FigureColor.WHITE to hostPlayer, FigureColor.BLACK to opponentPlayer)
@@ -52,7 +57,7 @@ class CheckerGameManager(
 
     val history = LinkedList<Pair<CheckerPlayer, FigureMove>>()
 
-    override fun getGameResults(): GameResult<CheckerPlayer, CheckerBoard> {
+    override fun getGameResults(): GameResult<CheckerPlayer, Board> {
         TODO()
     }
 
