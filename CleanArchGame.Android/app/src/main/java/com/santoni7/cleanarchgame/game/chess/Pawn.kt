@@ -48,22 +48,30 @@ class Pawn (override val color: FigureColor, override val board: Board) : Figure
             if(alreadyMoved == false && board.cells[fromX][fromY + 1].isFree &&
                 board.cells[fromX][fromY + 2].isFree)
                 availableMoves += FigureMove(fromX, fromY, fromX, fromY + 2, color)
-            if(board.cells[fromX][fromY + 1].isFree)
-                availableMoves += FigureMove(fromX, fromY, fromX, fromY + 1, color)
-            if(!board.cells[fromX + 1][fromY + 1].isFree && board.cells[fromX + 1][fromY + 1].figure!!.color != color)
-                availableMoves += FigureMove(fromX, fromY, fromX + 1, fromY + 1, color)
-            if(!board.cells[fromX - 1][fromY + 1].isFree && board.cells[fromX - 1][fromY + 1].figure!!.color != color)
-                availableMoves += FigureMove(fromX, fromY, fromX - 1, fromY + 1, color)
+            if(fromY + 1 < Board.BOARD_SIZE){
+                if(board.cells[fromX][fromY + 1].isFree)
+                    availableMoves += FigureMove(fromX, fromY, fromX, fromY + 1, color)
+                if(fromX + 1 < Board.BOARD_SIZE && !board.cells[fromX + 1][fromY + 1].isFree
+                    && board.cells[fromX + 1][fromY + 1].figure!!.color != color)
+                    availableMoves += FigureMove(fromX, fromY, fromX + 1, fromY + 1, color)
+                if(fromX - 1 >= 0 && !board.cells[fromX - 1][fromY + 1].isFree
+                    && board.cells[fromX - 1][fromY + 1].figure!!.color != color)
+                    availableMoves += FigureMove(fromX, fromY, fromX - 1, fromY + 1, color)
+            }
         }else{
             if(alreadyMoved == false && board.cells[fromX][fromY - 1].isFree &&
                 board.cells[fromX][fromY - 2].isFree)
                 availableMoves += FigureMove(fromX, fromY, fromX, fromY - 2, color)
-            if(board.cells[fromX][fromY - 1].isFree)
-                availableMoves += FigureMove(fromX, fromY, fromX, fromY - 1, color)
-            if(!board.cells[fromX + 1][fromY - 1].isFree && board.cells[fromX + 1][fromY - 1].figure!!.color != color)
-                availableMoves += FigureMove(fromX, fromY, fromX + 1, fromY + 1, color)
-            if(!board.cells[fromX - 1][fromY - 1].isFree && board.cells[fromX - 1][fromY - 1].figure!!.color != color)
-                availableMoves += FigureMove(fromX, fromY, fromX - 1, fromY - 1, color)
+            if(fromY - 1 >= 0){
+                if(board.cells[fromX][fromY - 1].isFree)
+                    availableMoves += FigureMove(fromX, fromY, fromX, fromY - 1, color)
+                if(fromX + 1 < Board.BOARD_SIZE && !board.cells[fromX + 1][fromY - 1].isFree
+                    && board.cells[fromX + 1][fromY - 1].figure!!.color != color)
+                    availableMoves += FigureMove(fromX, fromY, fromX + 1, fromY + 1, color)
+                if(fromX - 1 >= 0 && !board.cells[fromX - 1][fromY - 1].isFree
+                    && board.cells[fromX - 1][fromY - 1].figure!!.color != color)
+                    availableMoves += FigureMove(fromX, fromY, fromX - 1, fromY - 1, color)
+            }
         }
         return availableMoves
     }
