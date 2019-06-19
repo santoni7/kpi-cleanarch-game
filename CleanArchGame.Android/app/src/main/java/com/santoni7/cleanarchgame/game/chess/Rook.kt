@@ -21,8 +21,7 @@ class Rook (override val color: FigureColor, override val board: Board) : Figure
         while(fromX - step != -1){
             if(board.cells[fromX - step][fromY].isFree){
                 availableMoves += FigureMove(fromX, fromY, fromX - step, fromY, color)
-            }
-            if(!board.cells[fromX - step][fromY].isFree){
+            }else {
                 if(board.cells[fromX - step][fromY].figure!!.color == color)
                     break
                 else{
