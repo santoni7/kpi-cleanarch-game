@@ -21,6 +21,7 @@ import com.santoni7.cleanarchgame.model.User
 import com.santoni7.cleanarchgame.model.response.StartGameResponse
 import com.santoni7.cleanarchgame.util.applySchedulersForSingle
 import com.santoni7.cleanarchgame.presentation.viewmodel.base.BaseViewModel
+import com.santoni7.cleanarchgame.util.JWTUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
@@ -34,9 +35,6 @@ class CheckerViewModel : BaseViewModel() {
     @Inject
     lateinit var findOpponentUseCase: FindOpponentUseCase<Board, FigureMove, CheckerPlayer>
 
-    @Inject
-    lateinit var userTokenRepository: UserTokenRepository
-
     init {
         MyApp.gameComponent.inject(this)
     }
@@ -45,35 +43,14 @@ class CheckerViewModel : BaseViewModel() {
 
     lateinit var checkerGameManager: CheckerGameManager
 
-    fun onCreate(gameEntity: GameEntity, gameMode: GameMode) {
-        loadUserToken()
-            .doOnSuccess {
-                Log.e("token", it.userToken)
-            }
-            .doOnError { progressStatus.postValue(ProgressStatus(ProgressStatus.State.FAIL, it.message)) }
-            .subscribe()
-//        startGameUseCase.startGame(
-//            gameEntity,
-//            gameMode,
-//            listOf(User.makeAnonymous(), User.makeAnonymous())
-//        )
-//            .compose(applySchedulersForSingle())
-//            .subscribeBy(
-//                onSuccess = { response -> onSessionInitialized(response, gameMode) },
-//                onError = { error -> Log.e(GTAG, "CheckerViewModel->onCreate->onError: ${error.message}", error) }
-//            ).saveDisposable()
-    }
-
-    private fun loadUserToken(): Single<StartGameResponse> {
-        return userTokenRepository.requestUserToken()
-            .compose(applySchedulersForSingle())
+    fun onCreate(gameMode: GameMode) {
+        onSessionInitialized(gameMode)
     }
 
     private fun onSessionInitialized(
-        startGameResponse: StartGameResponse,
         gameMode: GameMode
     ) {
-        findOpponentUseCase.findOpponent(startGameResponse.userToken, gameMode)
+        findOpponentUseCase.findOpponent(gameMode)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .flatMapCompletable { secondPlayer ->

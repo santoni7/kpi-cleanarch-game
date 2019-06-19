@@ -1,5 +1,7 @@
 package com.santoni7.cleanarchgame.di.game
 
+import com.santoni7.cleanarchgame.data.GameStateRepository
+import com.santoni7.cleanarchgame.data.repositories.GameStateRepositoryImpl
 import com.santoni7.cleanarchgame.domain.game.ApplyPlayerActionUseCase
 import com.santoni7.cleanarchgame.domain.game.CheckGameEndedUseCase
 import com.santoni7.cleanarchgame.domain.impl.CheckerUseCasesImpl
@@ -27,5 +29,8 @@ abstract class CheckerModule {
 
     @GameScope @Checker @Binds
     abstract fun bindCheckerBoardInitializeUseCase(initializeCheckersBoardUseCaseImpl: InitializeCheckersBoardUseCaseImpl ): InitializeFieldUseCase<Board>
+
+    @Binds @Checker @GameScope
+    abstract fun gameStateRepository(gameStateRepositoryImpl: GameStateRepositoryImpl): GameStateRepository
 
 }

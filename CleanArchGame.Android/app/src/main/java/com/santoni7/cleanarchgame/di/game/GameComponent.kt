@@ -1,6 +1,7 @@
 package com.santoni7.cleanarchgame.di.game
 
 import com.santoni7.cleanarchgame.game.checker.CheckerGameManager
+import com.santoni7.cleanarchgame.game.checker.player.CheckerRemotePlayer
 import com.santoni7.cleanarchgame.presentation.viewmodel.CheckerViewModel
 import dagger.Subcomponent
 
@@ -9,4 +10,5 @@ import dagger.Subcomponent
 interface GameComponent {
     fun inject(checkerGame: CheckerGameManager)
     fun inject(checkerViewModel: CheckerViewModel)
+    fun inject(checkerRemotePlayer: CheckerRemotePlayer)
 }

@@ -71,4 +71,6 @@ dependencies {
 
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
 
+    implementation 'com.github.NaikSoftware:StompProtocolAndroid:1.6.4'
+
 }

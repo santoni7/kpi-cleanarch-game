@@ -5,6 +5,7 @@ import com.santoni7.cleanarchgame.data.GameStateRepository
 import com.santoni7.cleanarchgame.data.LeaderBoardRepository
 import com.santoni7.cleanarchgame.data.repositories.GameEntityRepositoryImpl
 import com.santoni7.cleanarchgame.data.repositories.GameStateRepositoryImpl
+import com.santoni7.cleanarchgame.di.game.GameScope
 import com.santoni7.cleanarchgame.domain.GetGamesUseCase
 import com.santoni7.cleanarchgame.domain.GetLeaderBoardUseCase
 import com.santoni7.cleanarchgame.domain.StartGameUseCase
@@ -27,6 +28,6 @@ abstract class GameCollectionModule{
 
     @Binds @Singleton abstract fun startGameUseCase(startCheckerGameImpl: StartCheckerGameImpl): StartGameUseCase
 
-    @Binds @Singleton abstract fun gameStateRepository(gameStateRepositoryImpl: GameStateRepositoryImpl): GameStateRepository
+
 
 }

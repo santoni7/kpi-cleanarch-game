@@ -24,7 +24,7 @@ class CheckerGameFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val gameEntity: GameEntity = requireActivity().intent.extras.getSerializable(MainActivity.GAME_ENTETY_KEY) as GameEntity
         val opponentType: PlayerType = requireActivity().intent.extras.getSerializable(MainActivity.PLAYER_TYPE_KEY) as PlayerType
-        checkerViewModel.onCreate(gameEntity, when(opponentType) {
+        checkerViewModel.onCreate(when(opponentType) {
             PlayerType.AI -> GameMode.AI
             PlayerType.LOCAL -> GameMode.LOCAL
             PlayerType.REMOTE -> GameMode.REMOTE
