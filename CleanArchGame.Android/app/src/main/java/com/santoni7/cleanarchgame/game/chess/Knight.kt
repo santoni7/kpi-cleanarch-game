@@ -7,7 +7,8 @@ import com.santoni7.cleanarchgame.game.common.FigureMove
 
 class Knight (override val color: FigureColor, override val board: Board) : Figure {
     override fun getBeatFigure(board: Board, move: FigureMove, figureColor: FigureColor): Board.Cell? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return if(!board.cells[move.toX][move.toY].isFree) board.cells[move.toX][move.toY]
+        else null
     }
 
     override fun canMove(move: FigureMove) = getAvailableMoves(move).contains(move)
