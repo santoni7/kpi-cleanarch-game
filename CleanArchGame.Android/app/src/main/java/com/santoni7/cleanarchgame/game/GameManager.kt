@@ -5,5 +5,4 @@ import io.reactivex.Completable
 
 interface GameManager {
     fun update(): Completable
-    val session: GameSession
 }

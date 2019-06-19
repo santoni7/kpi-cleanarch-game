@@ -37,9 +37,13 @@ abstract class BaseFragment : Fragment() {
             when(status.state) {
                 ProgressStatus.State.LOADING -> showProgress(status.message)
                 ProgressStatus.State.DONE -> hideProgress()
-//                else -> Log.e(BaseFragment::class.simpleName, "Illegal ProgressStatus: $status")
+                ProgressStatus.State.FAIL -> showError(status.message)
             }
         })
+    }
+
+    private fun showError(message: String?) {
+        Toast.makeText(hostActivity, message, Toast.LENGTH_LONG).show()
     }
 
     open fun showProgress(msg: String? = null) {

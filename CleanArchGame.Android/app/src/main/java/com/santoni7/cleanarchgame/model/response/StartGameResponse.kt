@@ -1,9 +1,8 @@
 package com.santoni7.cleanarchgame.model.response
 
-import com.santoni7.cleanarchgame.model.GameSession
+import com.google.gson.annotations.SerializedName
 
 data class StartGameResponse(
-    val status: Boolean,
-    val message: String?, // in case of error
-    val session: GameSession?
+    @SerializedName("token")
+    val userToken: String
 )

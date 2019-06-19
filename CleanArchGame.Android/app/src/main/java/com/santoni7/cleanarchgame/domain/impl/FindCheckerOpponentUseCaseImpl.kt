@@ -18,7 +18,7 @@ import javax.inject.Singleton
 class FindCheckerOpponentUseCaseImpl @Inject constructor() :
     FindOpponentUseCase<Board, FigureMove, CheckerPlayer> {
 
-    override fun findOpponent(session: GameSession, mode: GameMode) = Single.create<CheckerPlayer?> { emitter ->
+    override fun findOpponent(session: String, mode: GameMode) = Single.create<CheckerPlayer?> { emitter ->
         val player: CheckerPlayer? = when (mode) {
             GameMode.LOCAL -> CheckerLocalPlayer(user = User.makeAnonymous())
             GameMode.AI -> CheckerAIPlayer()

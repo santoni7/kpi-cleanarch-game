@@ -4,6 +4,7 @@ import com.santoni7.cleanarchgame.game.GameState
 import com.santoni7.cleanarchgame.model.GameEntity
 import com.santoni7.cleanarchgame.model.User
 import com.santoni7.cleanarchgame.model.UserStatistics
+import com.santoni7.cleanarchgame.model.response.StartGameResponse
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -23,4 +24,7 @@ interface GameApi {
 
     @POST("/session/{sessionId}/gameState")
     fun sendGameState(@Path("sessionId") sessionId: Int, gameState: GameState): Completable
+
+    @POST("/signin")
+    fun requestUerToken() : Single<StartGameResponse>
 }

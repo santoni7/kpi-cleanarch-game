@@ -46,8 +46,8 @@ class StartFragment : BaseFragment() {
             R.id.ai_opponent_radio_button -> PlayerType.AI
             else -> null
         }
-        if(game == null  || player == null) showError("Input correct data")
-        else openGameActivity(game, player)
+        if(player == null) showError("Input correct data")
+        else openGameActivity(GameEntity(1, "title", "description", 1), player)
     }
 
     private fun initGamesRecyclerView() {

@@ -21,7 +21,6 @@ import javax.inject.Inject
 
 @GameScope
 class CheckerGameManager(
-    override val session: GameSession,
     hostPlayer: CheckerPlayer,
     opponentPlayer: CheckerPlayer,
     swapColors: Boolean = false,

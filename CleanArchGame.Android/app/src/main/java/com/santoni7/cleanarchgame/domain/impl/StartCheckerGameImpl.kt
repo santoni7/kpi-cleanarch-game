@@ -14,9 +14,7 @@ class StartCheckerGameImpl @Inject constructor(): StartGameUseCase {
     override fun startGame(gameEntity: GameEntity, gameMode: GameMode, users: List<User>): Single<StartGameResponse> {
         return Single.create {
             val response = StartGameResponse(
-                true,
-                "",
-                GameSession(11, "Sdasd")
+                ""
             )
             it.onSuccess(response)
         }

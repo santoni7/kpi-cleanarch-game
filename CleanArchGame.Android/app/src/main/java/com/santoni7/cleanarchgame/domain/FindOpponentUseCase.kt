@@ -15,7 +15,7 @@ interface FindOpponentUseCase<
         TPlayerAction : PlayerAction,
         TPlayer : Player<TGameState, TPlayerAction>> {
 
-    fun findOpponent(session: GameSession, mode: GameMode): Single<TPlayer?>
+    fun findOpponent(userToken: String, mode: GameMode): Single<TPlayer?>
 
     fun findOpponent(mode: GameMode): TPlayer?
 }
